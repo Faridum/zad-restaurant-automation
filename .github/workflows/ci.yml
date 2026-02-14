@@ -28,11 +28,26 @@ jobs:
           restore-keys: |
             maven-
 
+      # ✅ Install PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      # ✅ Start PHP Built-in Server
+      - name: Start PHP Server
+        run: |
+          php -S localhost:8000 -t grad_project/web > /dev/null 2>&1 &
+          sleep 5
+
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
 
+      # ✅ Run Tests with Environment Variable
       - name: Run Tests
         run: mvn clean test
+        env:
+          BASE_URL: http://localhost:8000/
 
       - name: Generate JaCoCo Report
         run: mvn jacoco:report
@@ -42,4 +57,3 @@ jobs:
         with:
           name: jacoco-report
           path: target/site/jacoco
-

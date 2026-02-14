@@ -4,18 +4,21 @@ public final class FrameworkConstants {
 
     private FrameworkConstants() {}
 
+    // Read BASE_URL from environment variable
     public static final String BASE_URL =
-            "http://localhost/grad_project/web/";
+            System.getenv().getOrDefault(
+                    "BASE_URL",
+                    "http://localhost/grad_project/web/"
+            );
 
     public static final String ADMIN_LOGIN_URL =
-            "http://localhost/grad_project/web/admin/login.php";
+            BASE_URL + "admin/login.php";
 
     public static final String ADMIN_REQUESTS_URL =
-            "http://localhost/grad_project/web/admin/requests.php";
+            BASE_URL + "admin/requests.php";
 
     public static final String ADMIN_PRODUCTS_URL =
-            "http://localhost/grad_project/web/admin/products.php";
-
+            BASE_URL + "admin/products.php";
 
     public static final int EXPLICIT_WAIT = 10;
 }
