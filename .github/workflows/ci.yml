@@ -61,7 +61,6 @@ jobs:
 
       - name: Run Tests
         env:
-          env:
           BASE_URL: http://127.0.0.1:8000/
           DB_HOST: 127.0.0.1
           DB_USER: root
