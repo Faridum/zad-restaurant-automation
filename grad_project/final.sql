@@ -395,7 +395,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `last_login`, `
 CREATE TABLE `user_fcm_tokens` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `fcm_token` text NOT NULL,
+  `fcm_token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `lang` varchar(5) DEFAULT 'en'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
