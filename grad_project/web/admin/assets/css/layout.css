@@ -1,0 +1,97 @@
+/* =========🎨 لوحة ألوان وهوية عامة ========= */
+:root{
+  --brand-bg:#f6f8f7;
+  --brand-dark:#1e3d2f;
+  --brand-dark-2:#255641;
+  --brand-accent:#19a974;
+  --brand-accent-2:#118a60;
+  --brand-muted:#6b7a75;
+  --card-shadow:0 8px 20px rgba(0,0,0,.06);
+  --radius:16px;
+}
+
+html,body{ background:var(--brand-bg); color:#222; }
+
+/* =========🧭 الشريط الجانبي (مشترك Admin/Owner) ========= */
+.sidebar{
+  width:240px;height:100vh;position:fixed;right:0;top:0;
+  background:linear-gradient(180deg,var(--brand-dark),#163126);
+  color:#fff;display:flex;flex-direction:column;gap:4px;padding:18px 0;z-index:1000;
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+.sidebar h5{font-weight:700;letter-spacing:.2px;opacity:.95}
+.sidebar a{
+  color:#fff;text-decoration:none;padding:12px 18px 12px 14px;border-radius:10px;margin:0 12px;
+  display:flex;align-items:center;gap:10px;transition:.18s ease;
+  background:transparent; border:1px solid transparent;
+}
+.sidebar a:hover{ background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.12) }
+.sidebar a.active{
+  background:linear-gradient(180deg,var(--brand-accent),var(--brand-accent-2));
+  box-shadow:0 6px 14px rgba(25,169,116,.28);
+}
+
+/* =========📦 محتوى الصفحات ========= */
+.main-content{ margin-right:260px; padding:28px; }
+@media (max-width:992px){
+  .sidebar{ position:relative; width:100%; height:auto; border-radius:0 0 16px 16px; }
+  .main-content{ margin-right:0; padding:18px; }
+}
+
+/* =========🃏 بطاقات وكروت ========= */
+.card{
+  border:none;border-radius:var(--radius);box-shadow:var(--card-shadow);overflow:hidden;background:#fff;
+}
+.card-header{
+  border:none;background:var(--brand-dark);color:#fff;font-weight:600;
+}
+
+/* =========📈 كروت الإحصائيات ========= */
+.stat-card{ background:#fff;border-radius:var(--radius);box-shadow:var(--card-shadow);padding:18px 16px;text-align:center }
+.stat-card h5{ color:var(--brand-muted);font-weight:600;margin-bottom:6px }
+.stat-card h3{ font-weight:800; }
+
+/* =========🧮 الجداول ========= */
+.table{ margin:0; }
+.table thead th{
+  background:#f0f3f2 !important;color:#2a2a2a;font-weight:700;border-bottom:none;
+}
+.table tbody tr{ transition:.12s ease; }
+.table tbody tr:hover{ background:#fbfdfc; transform: translateY(-1px); }
+.table td, .table th{ vertical-align:middle !important; }
+.table img{ border-radius:10px; }
+
+/* =========🔘 الأزرار ========= */
+.btn{ border-radius:10px; font-weight:600; }
+.btn-success{ background:var(--brand-accent); border-color:var(--brand-accent); }
+.btn-success:hover{ background:var(--brand-accent-2); border-color:var(--brand-accent-2); }
+.btn-outline-danger{ border-width:2px }
+
+/* =========📝 الحقول ========= */
+.form-control, .form-select{
+  border-radius:10px;border:1px solid #dfe7e4;box-shadow:none;transition:.15s ease;background:#fff;
+}
+.form-control:focus, .form-select:focus{
+  border-color:var(--brand-accent); box-shadow:0 0 0 .2rem rgba(25,169,116,.15);
+}
+
+/* =========🪟 المودالات ========= */
+.modal-content{ border:none;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.18); }
+.modal-header{ border:none; }
+.modal-footer{ border:none; }
+
+/* =========🔔 توست (تنبيهات) ========= */
+.toast{ border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.15); }
+.toast.align-items-center{ backdrop-filter: blur(6px); }
+.toast .toast-body{ font-weight:600; }
+
+/* =========🏷️ بادجات الحالات ========= */
+.badge{ border-radius:10px;padding:.45rem .65rem;font-weight:700;letter-spacing:.2px }
+.badge.bg-secondary{ background:#9aa6a1 !important; }
+.badge.bg-info{ background:#4db7a7 !important; }
+.badge.bg-success{ background:#29b06b !important; }
+.badge.bg-danger{ background:#e75a5a !important; }
+
+/* =========🧰 أدوات صغيرة ========= */
+.shadow-soft{ box-shadow:var(--card-shadow) }
+.rounded-2xl{ border-radius:22px }
