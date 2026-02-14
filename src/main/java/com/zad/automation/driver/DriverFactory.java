@@ -8,21 +8,19 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class DriverFactory {
 
     public static WebDriver initDriver() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-
-        WebDriver driver = new ChromeDriver(options);
 
         WebDriverManager.chromedriver().setup();
 
-//        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        ChromeOptions options = new ChromeOptions();
+
+        // مهم جداً للـ CI
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920,1080");
+
+        WebDriver driver = new ChromeDriver(options);
 
         return driver;
-
-
-
     }
 }
