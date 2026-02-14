@@ -10,6 +10,20 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: final
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -20,34 +34,35 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Cache Maven Dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            maven-
-
-      # ✅ Install PHP
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
 
-      # ✅ Start PHP Built-in Server
+      - name: Wait for MySQL
+        run: sleep 20
+
+      - name: Import Database
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u root -proot final < grad_project/final.sql
+
       - name: Start PHP Server
         run: |
-          php -S localhost:8000 -t grad_project/web > /dev/null 2>&1 &
+          cd grad_project/web
+          php -S localhost:8000 &
           sleep 5
 
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
 
-      # ✅ Run Tests with Environment Variable
       - name: Run Tests
-        run: mvn clean test
         env:
           BASE_URL: http://localhost:8000/
+          DB_HOST: 127.0.0.1
+          DB_USER: root
+          DB_PASS: root
+          DB_NAME: final
+        run: mvn clean test
 
       - name: Generate JaCoCo Report
         run: mvn jacoco:report

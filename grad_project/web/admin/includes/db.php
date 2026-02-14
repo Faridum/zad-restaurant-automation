@@ -1,12 +1,20 @@
 <?php
-$host = "localhost"; // في Hostinger يكون اسم السيرفر غالباً: localhost
-$user = "farid"; // غيّره إلى اسم المستخدم في Hostinger
-$pass = "8208"; // كلمة المرور
-$dbname = "final";
+
+$host = getenv('DB_HOST') ?: 'localhost';
+$user = getenv('DB_USER') ?: 'farid';
+$pass = getenv('DB_PASS') ?: '8208';
+$dbname = getenv('DB_NAME') ?: 'final';
 
 try {
-  $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
+  $pdo = new PDO(
+    "mysql:host=$host;dbname=$dbname;charset=utf8",
+    $user,
+    $pass
+  );
+
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 } catch (PDOException $e) {
-  die("فشل الاتصال بقاعدة البيانات: " . $e->getMessage());
+  die("Database connection failed: " . $e->getMessage());
 }
+
