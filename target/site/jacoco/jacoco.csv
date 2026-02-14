@@ -1,0 +1,9 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+zad-restaurant-automation,com.zad.automation.base,BasePage,26,40,0,0,7,12,2,3,2,3
+zad-restaurant-automation,com.zad.automation.base,BaseTest,0,14,1,1,0,6,1,3,0,3
+zad-restaurant-automation,com.zad.automation.driver,DriverFactory,3,12,0,0,1,4,1,1,1,1
+zad-restaurant-automation,com.zad.automation.pages,HomePage,7,124,0,0,3,31,2,6,2,6
+zad-restaurant-automation,com.zad.automation.pages,AdminProductsPage,14,244,0,0,5,63,1,8,1,8
+zad-restaurant-automation,com.zad.automation.pages,AdminLoginPage,0,31,0,0,0,9,0,2,0,2
+zad-restaurant-automation,com.zad.automation.pages,AdminRequestsPage,0,48,0,0,0,13,0,3,0,3
+zad-restaurant-automation,com.zad.automation.flows,Phase1Flow,5,155,1,1,1,45,1,6,0,6

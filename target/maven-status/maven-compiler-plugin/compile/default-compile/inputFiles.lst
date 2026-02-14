@@ -1,0 +1,10 @@
+/cohn/MI/JavaProjects/zad-restaurant-automation/src/main/java/com/zad/automation/constants/FrameworkConstants.java
+/cohn/MI/JavaProjects/zad-restaurant-automation/src/main/java/com/zad/automation/pages/HomePage.java
+/cohn/MI/JavaProjects/zad-restaurant-automation/src/main/java/com/zad/automation/driver/DriverFactory.java
+/cohn/MI/JavaProjects/zad-restaurant-automation/src/main/java/com/zad/automation/base/Phase1Context.java
+/cohn/MI/JavaProjects/zad-restaurant-automation/src/main/java/com/zad/automation/flows/Phase1Flow.java
+/cohn/MI/JavaProjects/zad-restaurant-automation/src/main/java/com/zad/automation/base/BasePage.java
+/cohn/MI/JavaProjects/zad-restaurant-automation/src/main/java/com/zad/automation/pages/AdminRequestsPage.java
+/cohn/MI/JavaProjects/zad-restaurant-automation/src/main/java/com/zad/automation/base/BaseTest.java
+/cohn/MI/JavaProjects/zad-restaurant-automation/src/main/java/com/zad/automation/pages/AdminLoginPage.java
+/cohn/MI/JavaProjects/zad-restaurant-automation/src/main/java/com/zad/automation/pages/AdminProductsPage.java

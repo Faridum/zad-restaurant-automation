@@ -1,0 +1,7 @@
+<suite name="Phase 1 Suite">
+    <test name="Phase 1 Full Flow">
+        <classes>
+            <class name="com.zad.automation.tests.Phase1EndToEndTest"/>
+        </classes>
+    </test>
+</suite>

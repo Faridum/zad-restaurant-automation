@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminProductsPage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zad-restaurant-automation</a> &gt; <a href="index.source.html" class="el_package">com.zad.automation.pages</a> &gt; <span class="el_source">AdminProductsPage.java</span></div><h1>AdminProductsPage.java</h1><pre class="source lang-java linenums">package com.zad.automation.pages;
+
+import com.zad.automation.base.BasePage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.io.File;
+
+public class AdminProductsPage extends BasePage {
+
+    // زر فتح المودال
+<span class="fc" id="L13">    private By addProductBtn =</span>
+<span class="fc" id="L14">            By.cssSelector(&quot;button[data-bs-target='#addModal']&quot;);</span>
+
+    // الحقول
+<span class="fc" id="L17">    private By nameInput = By.name(&quot;name&quot;);</span>
+<span class="fc" id="L18">    private By priceInput = By.name(&quot;price&quot;);</span>
+<span class="fc" id="L19">    private By quantityInput = By.name(&quot;quantity&quot;);</span>
+<span class="fc" id="L20">    private By descriptionInput = By.name(&quot;description&quot;);</span>
+<span class="fc" id="L21">    private By photoInput = By.id(&quot;addPhotoInput&quot;);</span>
+
+    // زر الحفظ داخل الفورم
+<span class="fc" id="L24">    private By submitBtn =</span>
+<span class="fc" id="L25">            By.cssSelector(&quot;#addForm button[type='submit']&quot;);</span>
+
+    public AdminProductsPage(WebDriver driver) {
+<span class="fc" id="L28">        super(driver);</span>
+<span class="fc" id="L29">    }</span>
+
+    public void addProduct(String name,
+                           String price,
+                           String quantity,
+                           String description,
+                           String imagePath) {
+
+        // فتح المودال
+<span class="fc" id="L38">        click(addProductBtn);</span>
+
+        // تعبئة البيانات
+<span class="fc" id="L41">        type(nameInput, name);</span>
+<span class="fc" id="L42">        type(priceInput, price);</span>
+<span class="fc" id="L43">        type(quantityInput, quantity);</span>
+<span class="fc" id="L44">        type(descriptionInput, description);</span>
+
+        // رفع الصورة
+<span class="fc" id="L47">        File file = new File(imagePath);</span>
+<span class="fc" id="L48">        driver.findElement(photoInput)</span>
+<span class="fc" id="L49">                .sendKeys(file.getAbsolutePath());</span>
+
+        // حفظ المنتج
+<span class="fc" id="L52">        click(submitBtn);</span>
+<span class="fc" id="L53">    }</span>
+
+    public void deleteProduct(String productName) {
+
+<span class="fc" id="L57">        By productRow = By.xpath(</span>
+                &quot;//tr[td[contains(normalize-space(),'&quot; + productName + &quot;')]]&quot;
+        );
+
+        // انتظر ظهور الصف أولاً
+<span class="fc" id="L62">        wait.until(ExpectedConditions.visibilityOfElementLocated(productRow));</span>
+
+<span class="fc" id="L64">        By deleteBtn = By.xpath(</span>
+                &quot;//tr[td[contains(normalize-space(),'&quot; + productName + &quot;')]]//button[contains(@class,'delete-btn')]&quot;
+        );
+
+<span class="fc" id="L68">        wait.until(ExpectedConditions.elementToBeClickable(deleteBtn));</span>
+<span class="fc" id="L69">        click(deleteBtn);</span>
+
+        // انتظر ظهور نافذة التأكيد
+<span class="fc" id="L72">        By confirmDeleteBtn = By.id(&quot;confirmDelete&quot;);</span>
+<span class="fc" id="L73">        wait.until(ExpectedConditions.visibilityOfElementLocated(confirmDeleteBtn));</span>
+<span class="fc" id="L74">        click(confirmDeleteBtn);</span>
+
+        // انتظر اختفاء الصف بعد الحذف
+<span class="fc" id="L77">        wait.until(ExpectedConditions.invisibilityOfElementLocated(productRow));</span>
+<span class="fc" id="L78">    }</span>
+
+    // زر التعديل حسب اسم المنتج
+    private By editButton(String productName) {
+<span class="fc" id="L82">        return By.xpath(</span>
+                &quot;//tr[td[contains(normalize-space(),'&quot; + productName + &quot;')]]//button[contains(@class,'edit-btn')]&quot;
+        );
+    }
+
+    // حقول التعديل
+<span class="fc" id="L88">    private By editModal = By.id(&quot;editModal&quot;);</span>
+
+<span class="fc" id="L90">    private By editNameInput = By.id(&quot;edit-name&quot;);</span>
+<span class="fc" id="L91">    private By editPriceInput = By.id(&quot;edit-price&quot;);</span>
+<span class="fc" id="L92">    private By editDescriptionInput = By.id(&quot;edit-description&quot;);</span>
+
+    // هذا هو المهم 👇
+<span class="fc" id="L95">    private By editQuantityInput =</span>
+<span class="fc" id="L96">            By.cssSelector(&quot;#editModal input[name='quantity']&quot;);</span>
+
+<span class="fc" id="L98">    private By editSubmitBtn =</span>
+<span class="fc" id="L99">            By.cssSelector(&quot;#editModal button[type='submit']&quot;);</span>
+
+    public String editProduct(String oldProductName) {
+
+<span class="fc" id="L103">        String updatedName = oldProductName + &quot;_Updated&quot;;</span>
+
+<span class="fc" id="L105">        click(editButton(oldProductName));</span>
+
+        // انتظر ظهور حقل الاسم الخاص بالتعديل
+<span class="fc" id="L108">        wait.until(ExpectedConditions.visibilityOfElementLocated(editNameInput));</span>
+
+<span class="fc" id="L110">        type(editNameInput, updatedName);</span>
+<span class="fc" id="L111">        type(editPriceInput, &quot;50&quot;);</span>
+
+<span class="fc" id="L113">        wait.until(ExpectedConditions.visibilityOfElementLocated(editQuantityInput));</span>
+<span class="fc" id="L114">        type(editQuantityInput, &quot;5&quot;);</span>
+
+<span class="fc" id="L116">        type(editDescriptionInput, &quot;Updated product&quot;);</span>
+
+<span class="fc" id="L118">        click(editSubmitBtn);</span>
+
+<span class="fc" id="L120">        By updatedRow = By.xpath(</span>
+                &quot;//tr[td[contains(normalize-space(),'&quot; + updatedName + &quot;')]]&quot;
+        );
+
+<span class="fc" id="L124">        wait.until(ExpectedConditions.visibilityOfElementLocated(updatedRow));</span>
+
+<span class="fc" id="L126">        return updatedName;</span>
+    }
+
+    public boolean isValidationMessageDisplayed() {
+
+<span class="nc" id="L131">        By validationMessage = By.cssSelector(&quot;.invalid-feedback, .error&quot;);</span>
+
+        try {
+<span class="nc" id="L134">            wait.until(ExpectedConditions.visibilityOfElementLocated(validationMessage));</span>
+<span class="nc" id="L135">            return true;</span>
+<span class="nc" id="L136">        } catch (Exception e) {</span>
+<span class="nc" id="L137">            return false;</span>
+        }
+    }
+    public void waitUntilPageLoaded() {
+<span class="fc" id="L141">        wait.until(ExpectedConditions.visibilityOfElementLocated(addProductBtn));</span>
+<span class="fc" id="L142">    }</span>
+<span class="fc" id="L143">    private By addModal = By.id(&quot;addModal&quot;);</span>
+
+    public boolean isAddModalStillOpen() {
+<span class="fc" id="L146">        return wait.until(</span>
+<span class="fc" id="L147">                ExpectedConditions.visibilityOfElementLocated(addModal)</span>
+<span class="fc" id="L148">        ).isDisplayed();</span>
+    }
+<span class="fc" id="L150">    private By cancelBtn =</span>
+<span class="fc" id="L151">            By.cssSelector(&quot;#addModal button[data-bs-dismiss='modal']&quot;);</span>
+
+    public void closeAddModal() {
+<span class="fc" id="L154">        click(cancelBtn);</span>
+<span class="fc" id="L155">        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(&quot;addModal&quot;)));</span>
+<span class="fc" id="L156">    }</span>
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

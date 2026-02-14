@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminRequestsPage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zad-restaurant-automation</a> &gt; <a href="index.source.html" class="el_package">com.zad.automation.pages</a> &gt; <span class="el_source">AdminRequestsPage.java</span></div><h1>AdminRequestsPage.java</h1><pre class="source lang-java linenums">package com.zad.automation.pages;
+
+import com.zad.automation.base.BasePage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+public class AdminRequestsPage extends BasePage {
+
+    public AdminRequestsPage(WebDriver driver) {
+<span class="fc" id="L11">        super(driver);</span>
+<span class="fc" id="L12">    }</span>
+
+    public void approveRestaurant(String restaurantName) {
+
+<span class="fc" id="L16">        By row = By.xpath(</span>
+                &quot;//tr[td[contains(normalize-space(),'&quot; + restaurantName + &quot;')]]&quot;
+        );
+
+        // انتظر ظهور الصف أولاً
+<span class="fc" id="L21">        wait.until(ExpectedConditions.visibilityOfElementLocated(row));</span>
+
+<span class="fc" id="L23">        By approveBtn = By.xpath(</span>
+                &quot;//tr[td[contains(normalize-space(),'&quot; + restaurantName + &quot;')]]//button[contains(@class,'approve')]&quot;
+        );
+
+<span class="fc" id="L27">        wait.until(ExpectedConditions.elementToBeClickable(approveBtn));</span>
+<span class="fc" id="L28">        click(approveBtn);</span>
+
+<span class="fc" id="L30">        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(&quot;confirmModal&quot;)));</span>
+<span class="fc" id="L31">        click(By.id(&quot;confirmYes&quot;));</span>
+<span class="fc" id="L32">    }</span>
+
+<span class="fc" id="L34">    private By logoutBtn = By.cssSelector(&quot;a[href='logout.php']&quot;);</span>
+
+    public void logout() {
+<span class="fc" id="L37">        click(logoutBtn);</span>
+<span class="fc" id="L38">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
