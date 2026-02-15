@@ -76,7 +76,7 @@ public class AdminProductsPage extends BasePage {
         );
     }
 
-    private By editModal = By.id("editModal");
+//    private By editModal = By.id("editModal");
 
     private By editNameInput = By.id("edit-name");
     private By editPriceInput = By.id("edit-price");
