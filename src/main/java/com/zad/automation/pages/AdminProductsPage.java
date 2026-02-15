@@ -28,11 +28,7 @@ public class AdminProductsPage extends BasePage {
         super(driver);
     }
 
-    public void addProduct(String name,
-                           String price,
-                           String quantity,
-                           String description,
-                           String imagePath) {
+    public void addProduct(String name, String price, String quantity, String description,String imagePath) {
 
         click(addProductBtn);
 
@@ -75,8 +71,6 @@ public class AdminProductsPage extends BasePage {
                 "//tr[td[contains(normalize-space(),'" + productName + "')]]//button[contains(@class,'edit-btn')]"
         );
     }
-
-    private By editModal = By.id("editModal");
 
     private By editNameInput = By.id("edit-name");
     private By editPriceInput = By.id("edit-price");
@@ -127,6 +121,11 @@ public class AdminProductsPage extends BasePage {
         }
     }
     public void waitUntilPageLoaded() {
+        System.out.println("=== PRODUCTS PAGE DEBUG ===");
+        System.out.println("Current URL: " + driver.getCurrentUrl());
+        System.out.println("Page title: " + driver.getTitle());
+        System.out.println("===========================");
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(addProductBtn));
     }
     private By addModal = By.id("addModal");

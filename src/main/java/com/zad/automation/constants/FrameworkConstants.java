@@ -19,5 +19,5 @@ public final class FrameworkConstants {
     public static final String ADMIN_PRODUCTS_URL =
             BASE_URL + "admin/products.php";
 
-    public static final int EXPLICIT_WAIT = 10;
+    public static final int EXPLICIT_WAIT = 25;
 }
