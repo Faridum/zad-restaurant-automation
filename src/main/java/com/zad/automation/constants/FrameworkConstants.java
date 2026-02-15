@@ -4,7 +4,6 @@ public final class FrameworkConstants {
 
     private FrameworkConstants() {}
 
-    // Read BASE_URL from environment variable
     public static final String BASE_URL =
             System.getenv().getOrDefault(
                     "BASE_URL",

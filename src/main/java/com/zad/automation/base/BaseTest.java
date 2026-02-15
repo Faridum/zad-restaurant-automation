@@ -2,24 +2,22 @@ package com.zad.automation.base;
 
 import com.zad.automation.driver.DriverFactory;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
-
-public abstract class BaseTest {
+public class BaseTest {
 
     protected WebDriver driver;
 
-    @BeforeClass
-    public void setUp() {
-        driver = DriverFactory.initDriver();
+    @BeforeMethod
+    public void setup() {
+        driver = DriverFactory.createDriver();
     }
 
-    @AfterClass
+    @AfterMethod
     public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
     }
-
 }

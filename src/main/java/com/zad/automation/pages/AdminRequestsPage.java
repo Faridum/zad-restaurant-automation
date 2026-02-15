@@ -17,7 +17,6 @@ public class AdminRequestsPage extends BasePage {
                 "//tr[td[contains(normalize-space(),'" + restaurantName + "')]]"
         );
 
-        // انتظر ظهور الصف أولاً
         wait.until(ExpectedConditions.visibilityOfElementLocated(row));
 
         By approveBtn = By.xpath(

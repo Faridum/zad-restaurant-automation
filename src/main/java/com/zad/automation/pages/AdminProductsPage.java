@@ -34,21 +34,17 @@ public class AdminProductsPage extends BasePage {
                            String description,
                            String imagePath) {
 
-        // فتح المودال
         click(addProductBtn);
 
-        // تعبئة البيانات
         type(nameInput, name);
         type(priceInput, price);
         type(quantityInput, quantity);
         type(descriptionInput, description);
 
-        // رفع الصورة
         File file = new File(imagePath);
         driver.findElement(photoInput)
                 .sendKeys(file.getAbsolutePath());
 
-        // حفظ المنتج
         click(submitBtn);
     }
 
@@ -58,7 +54,6 @@ public class AdminProductsPage extends BasePage {
                 "//tr[td[contains(normalize-space(),'" + productName + "')]]"
         );
 
-        // انتظر ظهور الصف أولاً
         wait.until(ExpectedConditions.visibilityOfElementLocated(productRow));
 
         By deleteBtn = By.xpath(
@@ -68,30 +63,25 @@ public class AdminProductsPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(deleteBtn));
         click(deleteBtn);
 
-        // انتظر ظهور نافذة التأكيد
         By confirmDeleteBtn = By.id("confirmDelete");
         wait.until(ExpectedConditions.visibilityOfElementLocated(confirmDeleteBtn));
         click(confirmDeleteBtn);
 
-        // انتظر اختفاء الصف بعد الحذف
         wait.until(ExpectedConditions.invisibilityOfElementLocated(productRow));
     }
 
-    // زر التعديل حسب اسم المنتج
     private By editButton(String productName) {
         return By.xpath(
                 "//tr[td[contains(normalize-space(),'" + productName + "')]]//button[contains(@class,'edit-btn')]"
         );
     }
 
-    // حقول التعديل
     private By editModal = By.id("editModal");
 
     private By editNameInput = By.id("edit-name");
     private By editPriceInput = By.id("edit-price");
     private By editDescriptionInput = By.id("edit-description");
 
-    // هذا هو المهم 👇
     private By editQuantityInput =
             By.cssSelector("#editModal input[name='quantity']");
 
@@ -104,7 +94,6 @@ public class AdminProductsPage extends BasePage {
 
         click(editButton(oldProductName));
 
-        // انتظر ظهور حقل الاسم الخاص بالتعديل
         wait.until(ExpectedConditions.visibilityOfElementLocated(editNameInput));
 
         type(editNameInput, updatedName);
