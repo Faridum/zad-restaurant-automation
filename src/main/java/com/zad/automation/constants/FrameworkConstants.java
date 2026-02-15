@@ -20,4 +20,17 @@ public final class FrameworkConstants {
             BASE_URL + "admin/products.php";
 
     public static final int EXPLICIT_WAIT = 25;
+
+    // ✅ Admin credentials (Secure)
+    public static final String ADMIN_EMAIL =
+            System.getenv().getOrDefault(
+                    "ADMIN_EMAIL",
+                    "almustafa77sd@gmail.com"
+            );
+
+    public static final String ADMIN_PASSWORD =
+            System.getenv().getOrDefault(
+                    "ADMIN_PASSWORD",
+                    "Aa@123"
+            );
 }
