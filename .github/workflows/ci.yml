@@ -25,56 +25,68 @@ jobs:
           --health-retries=5
 
     steps:
+      # 1️⃣ Checkout
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Java
+      # 2️⃣ Setup Java
+      - name: Setup Java 21
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: temurin
+          java-version: 21
+          cache: maven
 
+      # 3️⃣ Setup PHP
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: 8.2
 
+      # 4️⃣ Wait for MySQL
       - name: Wait for MySQL
         run: sleep 20
 
+      # 5️⃣ Import Database
       - name: Import Database
         run: |
           mysql -h 127.0.0.1 -P 3306 -u root -proot final < grad_project/final.sql
 
+      # 6️⃣ Start PHP Server
       - name: Start PHP Server
-        env:
-          DB_HOST: 127.0.0.1
-          DB_USER: root
-          DB_PASS: root
-          DB_NAME: final
         run: |
           cd grad_project/web
           php -S 127.0.0.1:8000 > /dev/null 2>&1 &
           echo "Waiting for server..."
-          for i in {1..20}; do
+          for i in {1..30}; do
             curl -s http://127.0.0.1:8000/admin/login.php > /dev/null && break
             sleep 2
           done
 
+      # 7️⃣ Install Chrome
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
 
+      # 8️⃣ Run Tests + Generate Coverage
       - name: Run Tests
         env:
           BASE_URL: http://127.0.0.1:8000/
-        run: mvn clean test
+        run: mvn clean verify
 
-
-      - name: Generate JaCoCo Report
-        run: mvn jacoco:report
-
+      # 9️⃣ Upload Coverage Artifact
       - name: Upload JaCoCo Report
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
           path: target/site/jacoco
+
+      # 🔟 SonarCloud Analysis
+      - name: SonarCloud Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn sonar:sonar \
+            -Dsonar.projectKey=faridum \
+            -Dsonar.organization=zad-restaurant-automation  \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN
