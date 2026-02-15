@@ -59,7 +59,7 @@ public class Phase1Flow {
         login.login("almustafa77sd@gmail.com", "Aa@123");
 
         new WebDriverWait(driver, Duration.ofSeconds(20))
-                .until(ExpectedConditions.urlContains("dashboard"));
+                .until(ExpectedConditions.urlContains("/admin/"));
 
         driver.get(FrameworkConstants.ADMIN_REQUESTS_URL);
 
