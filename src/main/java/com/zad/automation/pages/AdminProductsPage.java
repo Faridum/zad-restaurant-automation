@@ -121,10 +121,6 @@ public class AdminProductsPage extends BasePage {
         }
     }
     public void waitUntilPageLoaded() {
-        System.out.println("=== PRODUCTS PAGE DEBUG ===");
-        System.out.println("Current URL: " + driver.getCurrentUrl());
-        System.out.println("Page title: " + driver.getTitle());
-        System.out.println("===========================");
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(addProductBtn));
     }
