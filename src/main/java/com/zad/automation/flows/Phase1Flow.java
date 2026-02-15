@@ -77,21 +77,24 @@ public class Phase1Flow {
 
         driver.get(FrameworkConstants.ADMIN_LOGIN_URL);
 
-        AdminLoginPage login =
-                new AdminLoginPage(driver);
-
+        AdminLoginPage login = new AdminLoginPage(driver);
         login.login(email, password);
+
+        new WebDriverWait(driver, Duration.ofSeconds(20))
+                .until(ExpectedConditions.urlContains("dashboard"));
     }
+
 
 
     public void manageProducts() {
 
         driver.get(FrameworkConstants.ADMIN_PRODUCTS_URL);
 
+        new WebDriverWait(driver, Duration.ofSeconds(20))
+                .until(ExpectedConditions.urlContains("products"));
+
         AdminProductsPage page = new AdminProductsPage(driver);
-
         page.waitUntilPageLoaded();
-
 
         validateProductCreation(page);
 
