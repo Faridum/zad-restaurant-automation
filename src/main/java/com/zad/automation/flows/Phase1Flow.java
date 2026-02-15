@@ -6,14 +6,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.security.SecureRandom;
 import java.time.Duration;
 
 public class Phase1Flow {
 
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(20);
-    private static final String DEFAULT_PASSWORD = "123456";
+    private static final String DEFAULT_PASSWORD = "Test@" + System.currentTimeMillis();
     private static final String TEST_IMAGE_PATH = "src/test/resources/Test.png";
-    private static final String DEFAULT_CITY = "Damascus";
+    private static final String DEFAULT_CITY = "Cairo";
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     private final WebDriver driver;
     private final WebDriverWait wait;
@@ -53,7 +55,7 @@ public class Phase1Flow {
 
         home.fillForm(
                 "Automation User",
-                generateRandomPhone(),
+                generatePhoneNumber(),
                 email,
                 DEFAULT_PASSWORD,
                 restaurantName,
@@ -65,8 +67,9 @@ public class Phase1Flow {
         home.waitForAlertAndAccept();
     }
 
-    private String generateRandomPhone() {
-        return "09111" + (int) (Math.random() * 10_000_000);
+    private String generatePhoneNumber() {
+        int number = RANDOM.nextInt(10_000_000);
+        return "09111" + number;
     }
 
     /* ============================================================
