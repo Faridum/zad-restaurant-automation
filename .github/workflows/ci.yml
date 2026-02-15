@@ -40,24 +40,19 @@ jobs:
           php-version: '8.2'
 
       - name: Wait for MySQL
-        run: sleep 20
+        run: sleep 25
 
       - name: Import Database
         run: |
           mysql -h 127.0.0.1 -P 3306 -u root -proot final < grad_project/final.sql
 
       - name: Start PHP Server
-        env:
-          DB_HOST: 127.0.0.1
-          DB_USER: root
-          DB_PASS: root
-          DB_NAME: final
         run: |
           cd grad_project/web
           php -S 127.0.0.1:8000 > /dev/null 2>&1 &
           echo "Waiting for server..."
           for i in {1..20}; do
-            curl -s http://127.0.0.1:8000/admin/login.php > /dev/null && break
+            curl -s http://127.0.0.1:8000 > /dev/null && break
             sleep 2
           done
 
@@ -66,9 +61,9 @@ jobs:
 
       - name: Run Tests
         env:
+          CI: true
           BASE_URL: http://127.0.0.1:8000/
         run: mvn clean test
-
 
       - name: Generate JaCoCo Report
         run: mvn jacoco:report
