@@ -5,6 +5,9 @@ import com.zad.automation.pages.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class Phase1Flow {
 
@@ -18,9 +21,6 @@ public class Phase1Flow {
         this.driver = driver;
     }
 
-    // =========================
-    // STEP 1: Registration
-    // =========================
     public void registerRestaurant() {
 
         driver.get(FrameworkConstants.BASE_URL);
@@ -49,10 +49,8 @@ public class Phase1Flow {
         home.waitForAlertAndAccept();
     }
 
-    // =========================
-    // STEP 2: Admin Approval
-    // =========================
     public void approveRestaurant() {
+
         driver.manage().deleteAllCookies();
 
         driver.get(FrameworkConstants.ADMIN_LOGIN_URL);
@@ -60,18 +58,21 @@ public class Phase1Flow {
         AdminLoginPage login = new AdminLoginPage(driver);
         login.login("almustafa77sd@gmail.com", "Aa@123");
 
+        new WebDriverWait(driver, Duration.ofSeconds(20))
+                .until(ExpectedConditions.urlContains("dashboard"));
+
         driver.get(FrameworkConstants.ADMIN_REQUESTS_URL);
 
-        AdminRequestsPage requests =
-                new AdminRequestsPage(driver);
+        driver.navigate().refresh();
+
+        AdminRequestsPage requests = new AdminRequestsPage(driver);
 
         requests.approveRestaurant(restaurantName);
+
         requests.logout();
     }
 
-    // =========================
-    // STEP 3: Login as Restaurant
-    // =========================
+
     public void loginAsRestaurant() {
 
         driver.get(FrameworkConstants.ADMIN_LOGIN_URL);
@@ -82,23 +83,18 @@ public class Phase1Flow {
         login.login(email, password);
     }
 
-    // =========================
-    // STEP 4: Product Management
-    // =========================
+
     public void manageProducts() {
 
         driver.get(FrameworkConstants.ADMIN_PRODUCTS_URL);
 
         AdminProductsPage page = new AdminProductsPage(driver);
 
-// انتظر حتى يظهر زر إضافة المنتج
         page.waitUntilPageLoaded();
 
 
-        // 1️⃣ Validation Test (Negative Scenario)
         validateProductCreation(page);
 
-        // 2️⃣ Add Product (Positive Scenario)
         String productName =
                 "Auto Product " + System.currentTimeMillis();
 
@@ -110,14 +106,11 @@ public class Phase1Flow {
                 "src/test/resources/Test.png"
         );
 
-        // 3️⃣ Edit
         String updatedName =
                 page.editProduct(productName);
 
-        // 4️⃣ Delete
         page.deleteProduct(updatedName);
 
-        // 5️⃣ Add Final Product
         page.addProduct(
                 "Final Product",
                 "50",
